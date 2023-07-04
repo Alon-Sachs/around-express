@@ -1,18 +1,25 @@
-# Around the U.S. Back End  
-  
-## Directories  
-  
-`/data` — JSON files to temporarily emulate database integration.  
-  
-`/routes` — routing files.  
-  
-All other directories are optional and may be created by the developer if necessary.   
-  
-## Running the Project  
-  
-`npm run start` — to launch the server.  
-  
-`npm run dev` — to launch the server with the hot reload feature.  
+# Project 12 : Around Express
 
+**Intro**    
 
+Introducing a fully working express app!  
+The 12th webproject from practicum webdevelopment course which uses Express.
 
+### Overview
+
+A fully oprateional Node.js server using express.
+Possible routes: 
+/users
+/users/:userID
+/cards
+
+**Technologies used**
+
+* Node.js
+* Express.js
+* NPM and package managment
+* Linter and EditorConfig
+
+**Demo:**
+
+![](https://github.com/Alon-Sachs/around-express/readme_files/server demonstration.gif)
