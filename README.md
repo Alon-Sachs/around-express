@@ -22,4 +22,4 @@ Possible routes:
 
 **Demo:**
 
-![](https://github.com/Alon-Sachs/around-express/readme_files/server demonstration.gif)
+![](https://github.com/Alon-Sachs/around-express/readme_files/server_demonstration.gif)
