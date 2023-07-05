@@ -9,7 +9,7 @@ users.get('/', (req, res) => {
     .then((data) => {
       res.send(JSON.parse(data));
     })
-    .catch((err) => console.log(err));
+    .catch(() => res.status(500).send({ message: 'An error has occurred on the server' }));
 });
 
 users.get('/:id', (req, res) => {
@@ -24,7 +24,7 @@ users.get('/:id', (req, res) => {
       }
       res.send(user);
     })
-    .catch((err) => console.log(err));
+    .catch(() => res.status(500).send({ message: 'An error has occurred on the server' }));
 });
 
 module.exports = users;
