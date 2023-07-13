@@ -45,7 +45,7 @@ module.exports.updateUserProfile = (req, res) => {
     .then((user) => res.send({ data: user }))
     .catch((err) => {
       if (err.name === 'NotFoundError') return res.status(NOT_FOUND).send({ message: err.message });
-      if (err.name === 'CastError') return res.status(BAD_REQUEST).send({ message: err.message });
+      if (err.name === 'CastError' || err.name === 'ValidationError') return res.status(BAD_REQUEST).send({ message: err.message });
       return res.status(DEFAULT).send({ message: 'Default Error' });
     });
 };
@@ -62,7 +62,7 @@ module.exports.updateUserAvatar = (req, res) => {
     .then((user) => res.send({ data: user }))
     .catch((err) => {
       if (err.name === 'NotFoundError') return res.status(NOT_FOUND).send({ message: err.message });
-      if (err.name === 'CastError') return res.status(BAD_REQUEST).send({ message: err.message });
+      if (err.name === 'CastError' || err.name === 'ValidationError') return res.status(BAD_REQUEST).send({ message: err.message });
       return res.status(DEFAULT).send({ message: 'Default Error' });
     });
 };
