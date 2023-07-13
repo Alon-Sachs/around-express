@@ -1,15 +1,10 @@
 const Card = require('../models/card');
-
-const errorCodes = {
-  validationError: 400,
-  notFoundError: 404,
-  defaultError: 500,
-};
+const { BAD_REQUEST, NOT_FOUND, DEFAULT } = require('../utils/constants');
 
 module.exports.getAllCards = (req, res) => {
   Card.find({})
     .then((cards) => res.send({ data: cards }))
-    .catch(() => res.status(errorCodes.defaultError).send({ message: 'Default Error' }));
+    .catch(() => res.status(DEFAULT).send({ message: 'Default Error' }));
 };
 
 module.exports.createCard = (req, res) => {
@@ -17,8 +12,8 @@ module.exports.createCard = (req, res) => {
   Card.create({ name, link, owner: req.user._id })
     .then((card) => res.send({ data: card }))
     .catch((err) => {
-      if (err.name === 'ValidationError') return res.status(errorCodes.validationError).send({ message: err.message });
-      return res.status(errorCodes.defaultError).send({ message: 'Default Error' });
+      if (err.name === 'ValidationError') return res.status(BAD_REQUEST).send({ message: err.message });
+      return res.status(DEFAULT).send({ message: 'Default Error' });
     });
 };
 
@@ -32,8 +27,9 @@ module.exports.deleteCard = (req, res) => {
     })
     .then((card) => res.send({ data: card }))
     .catch((err) => {
-      if (err.name === 'NotFoundError') return res.status(errorCodes.notFoundError).send({ message: err.message });
-      return res.status(errorCodes.defaultError).send({ message: 'Default Error' });
+      if (err.name === 'NotFoundError') return res.status(NOT_FOUND).send({ message: err.message });
+      if (err.name === 'CastError') return res.status(BAD_REQUEST).send({ message: err.message });
+      return res.status(DEFAULT).send({ message: 'Default Error' });
     });
 };
 
@@ -51,9 +47,9 @@ module.exports.likeCard = (req, res) => {
     })
     .then((card) => res.send({ data: card }))
     .catch((err) => {
-      if (err.name === 'NotFoundError') return res.status(errorCodes.notFoundError).send({ message: err.message });
-      if (err.name === 'ValidationError') return res.status(errorCodes.validationError).send({ message: err.message });
-      return res.status(errorCodes.defaultError).send({ message: 'Default Error' });
+      if (err.name === 'NotFoundError') return res.status(NOT_FOUND).send({ message: err.message });
+      if (err.name === 'CastError') return res.status(BAD_REQUEST).send({ message: err.message });
+      return res.status(DEFAULT).send({ message: 'Default Error' });
     });
 };
 
@@ -71,8 +67,8 @@ module.exports.dislikeCard = (req, res) => {
     })
     .then((card) => res.send({ data: card }))
     .catch((err) => {
-      if (err.name === 'NotFoundError') return res.status(errorCodes.notFoundError).send({ message: err.message });
-      if (err.name === 'ValidationError') return res.status(errorCodes.validationError).send({ message: err.message });
-      return res.status(errorCodes.defaultError).send({ message: 'Default Error' });
+      if (err.name === 'NotFoundError') return res.status(NOT_FOUND).send({ message: err.message });
+      if (err.name === 'CastError') return res.status(BAD_REQUEST).send({ message: err.message });
+      return res.status(DEFAULT).send({ message: 'Default Error' });
     });
 };

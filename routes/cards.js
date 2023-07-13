@@ -7,7 +7,7 @@ cards.get('/', getAllCards);
 
 cards.post('/', createCard);
 
-cards.delete('/', deleteCard);
+cards.delete('/:cardId', deleteCard);
 
 cards.put('/:cardId/likes', likeCard);
 
