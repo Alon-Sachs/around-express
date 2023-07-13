@@ -1,30 +1,16 @@
 const users = require('express').Router();
-const path = require('path');
-const fsPromises = require('fs').promises;
+const {
+  getAllUsers, getUser, createUser, updateUserProfile, updateUserAvatar,
+} = require('../controllers/users');
 
-users.get('/', (req, res) => {
-  const filePath = path.join(__dirname, '..', 'data', 'users.json');
+users.get('/', getAllUsers);
 
-  fsPromises.readFile(filePath, { encoding: 'utf8' })
-    .then((data) => {
-      res.send(JSON.parse(data));
-    })
-    .catch(() => res.status(500).send({ message: 'An error has occurred on the server' }));
-});
+users.get('/:userId', getUser);
 
-users.get('/:id', (req, res) => {
-  const filePath = path.join(__dirname, '..', 'data', 'users.json');
+users.post('/', createUser);
 
-  fsPromises.readFile(filePath, { encoding: 'utf8' })
-    .then((data) => {
-      const user = JSON.parse(data).find((selectedUser) => selectedUser._id === req.params.id);
-      if (!user) {
-        res.status(404).send({ message: 'User ID not found' });
-        return;
-      }
-      res.send(user);
-    })
-    .catch(() => res.status(500).send({ message: 'An error has occurred on the server' }));
-});
+users.patch('/me', updateUserProfile);
+
+users.patch('/me/avatar', updateUserAvatar);
 
 module.exports = users;
